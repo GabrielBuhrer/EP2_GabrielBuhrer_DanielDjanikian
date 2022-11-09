@@ -1,4 +1,8 @@
-print("Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!")
+import sys
+from termcolor import colored, cprint
+
+text = colored('Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!', 'purple', attrs=['reverse', 'blink'])
+print(text)
 
 print()
 
