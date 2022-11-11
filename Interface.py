@@ -543,7 +543,7 @@ if (soma_f + soma_m + soma_d) == 0:
 
         print(perg)
 
-        resp = input((ANSI.color_text(39) + "Qual sua resposta?! "))
+        resp = input((ANSI.color_text(39) + "\n" + "Qual sua resposta?! "))
 
         for item in questao:
             if item == "correta":
@@ -554,6 +554,18 @@ if (soma_f + soma_m + soma_d) == 0:
         if resp == resp_correta:
             print()
             print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+
+        letras = ['A','B','C','D']
+        letras2 = []
+
+        for letra in letras:
+            if letra != resp_correta:
+                letras2.append(letra)
+
+        if resp in letras2:
+            print()
+            print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
+
 
         
 
