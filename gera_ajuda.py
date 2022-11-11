@@ -26,3 +26,4 @@ def gera_ajuda(questao):
         Errada1=questao['opcoes'][questões_ja_sorteadas[1]]        
         resp="DICA:"+"\n"+'Opções certamente erradas: '+ Errada +' | '+ Errada1
         return resp
+   
