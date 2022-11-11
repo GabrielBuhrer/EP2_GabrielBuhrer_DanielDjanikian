@@ -450,12 +450,13 @@ for perg in valida_d:
     soma_d = soma_d + tam
 
 if (soma_f + soma_m + soma_d) == 0:
-    
+
     c = 0
     lista_q = []
     premio = 0
     valores = [1000,5000,10000,30000,50000,100000,300000,500000,1000000]
     continuar=True
+    pulos = 3
 
     while continuar:
 
@@ -466,24 +467,25 @@ if (soma_f + soma_m + soma_d) == 0:
         else:
             nível = 'dificil'
 
-        print()
+        if c == 0:
+            print()
 
-        print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
+            print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
 
-        print()
+            print()
 
-        nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
+            nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
 
-        print()
+            print()
 
-        input((ANSI.color_text(39) + "Ok {0}, você tem direito a pular 3 vezes e 2 ajudas!\n").format(nome) + (ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!") + 
-        "\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
-
-
-        print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nível) + "\n") 
-        input(ANSI.color_text(39) + "Aperte ENTER para continuar...")
+            input((ANSI.color_text(39) + "Ok {0}, você tem direito a pular 3 vezes e 2 ajudas!\n").format(nome) + (ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!") + 
+            "\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
 
+            print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nível) + "\n") 
+            input(ANSI.color_text(39) + "Aperte ENTER para continuar...")
+
+        
         def sorteia_questao(dicionário,nível):
    
             for chaves in dicionário:
@@ -549,11 +551,12 @@ if (soma_f + soma_m + soma_d) == 0:
             if item == "correta":
                 resp_correta = questao[item]
 
-        premio = premio + valores[c-2]
+        premio = premio + valores[c-1]
 
         if resp == resp_correta:
             print()
-            print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+            print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n")
+            input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
         letras = ['A','B','C','D']
         letras2 = []
@@ -565,6 +568,14 @@ if (soma_f + soma_m + soma_d) == 0:
         if resp in letras2:
             print()
             print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
+            continuar = False
+
+        if resp == 'pular':
+            pulos = pulos - 1
+            print((ANSI.color_text(39) + "OK, pulando! Você ainda tem {0} pulos!".format(pulos)) + "\n")
+            input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+            c = c - 1
+
 
 
         
