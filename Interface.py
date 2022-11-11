@@ -305,8 +305,6 @@ def transforma_base(quest):
 dicio_f = transforma_base(quest)
 
 def valida_questao(dicio):
-
-    print(dicio)
     niveis=['facil','medio','dificil']
     opcoes_certas=['A','B','C','D']
     dicio_resp={}
@@ -384,11 +382,6 @@ def valida_questao(dicio):
             if dicio[chaves] not in opcoes_certas:
                 o1=1
         q=q+1        
-    print(A)
-    print(B)
-    print(C)
-    print(D)
-    print(q_opc)
     if t==0:
         dicio_resp['titulo']='nao_encontrado'
     if q!=4:
@@ -435,6 +428,7 @@ def valida_questoes(lista_questoes):
 
 valida_f = valida_questoes(dicio_f['facil'])
 
+
 valida_m = valida_questoes(dicio_f['medio'])
 
 valida_d = valida_questoes(dicio_f['dificil'])
@@ -457,7 +451,7 @@ for perg in valida_d:
 
 if (soma_f + soma_m + soma_d) == 0:
     
-    c = 1
+    c = 0
     lista_q = []
     premio = 0
     valores = [1000,5000,10000,30000,50000,100000,300000,500000,1000000]
@@ -465,12 +459,12 @@ if (soma_f + soma_m + soma_d) == 0:
 
     while continuar:
 
-        if c >= 1 and c <= 3:
-            nivel = 'facil'
-        elif c > 3 and c <=6:
-            nivel = 'medio'
+        if c >= 0 and c <= 2:
+            nível = 'facil'
+        elif c > 2 and c <=5:
+            nível = 'medio'
         else:
-            nivel = 'dificil'
+            nível = 'dificil'
 
         print()
 
@@ -486,7 +480,7 @@ if (soma_f + soma_m + soma_d) == 0:
         "\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
 
-        print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nivel) + "\n") 
+        print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nível) + "\n") 
         input(ANSI.color_text(39) + "Aperte ENTER para continuar...")
 
 
@@ -501,6 +495,8 @@ if (soma_f + soma_m + soma_d) == 0:
                     return z[i]
 
         def sorteia_questao_inedita(dicionário,nível,lista):
+            dicionário=dicionário
+            nível=nível
             continuar=True
             while continuar:
                 questao=sorteia_questao(dicionário,nível)
@@ -510,7 +506,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     continuar=False
                     return questao
 
-        questao = sorteia_questao_inedita(dicio_f,nivel,lista_q)
+        questao = sorteia_questao_inedita(dicio_f,nível,lista_q)
         c = c + 1
 
         def questao_para_texto(questao,c):
@@ -539,7 +535,7 @@ if (soma_f + soma_m + soma_d) == 0:
                 elif letra == "D":
                     D = respostas[letra]
                 
-            final1 = "\n\n----------------------------------------"(ANSI.color_text(34) + "QUESTÃO {0}")(ANSI.color_text(39) + "RESPOSTAS:\nA: {1}\nB: {2}\nC: {3}\nD: {4}").format(c,titulo,A,B,C,D)
+            final1 = ("\n\n----------------------------------------" + "\n" + (ANSI.color_text(34) + "QUESTÃO {0}:") + '\n' + '\n' + (ANSI.color_text(39) + "{1}") + '\n' + '\n' + (ANSI.color_text(39) + "RESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}")).format(num,titulo,A,B,C,D)
 
             return final1
 
