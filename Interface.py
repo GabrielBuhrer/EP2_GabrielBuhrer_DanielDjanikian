@@ -482,7 +482,7 @@ if (soma_f + soma_m + soma_d) == 0:
         "\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
 
-        print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nível) + "\n") 
+        print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível FACIL!") + "\n") 
         input(ANSI.color_text(39) + "Aperte ENTER para continuar...")
 
 
