@@ -460,7 +460,12 @@ if (soma_f + soma_m + soma_d) == 0:
         valores = [1000,5000,10000,30000,50000,100000,300000,500000,1000000]
         continuar=True
         pulos = 3
+        ajudas = 2
         nível='facil'
+        rodada=0
+        repete_quest=0
+        nao_sortear=0
+        
         print()
 
         print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
@@ -480,6 +485,7 @@ if (soma_f + soma_m + soma_d) == 0:
 
 
         while continuar:
+            
 
             if c >= 0 and c <= 2:
                 nível = 'facil'
@@ -512,7 +518,7 @@ if (soma_f + soma_m + soma_d) == 0:
                         lista.append(questao)
                         continuar=False
                         return questao
-            if pulos>=0:
+            if pulos>=-1 and rodada==0 and ajudas>=-1 and repete_quest==0 and nao_sortear==0:
                 questao = sorteia_questao_inedita(dicio_f,nível,lista_q)
                 c = c + 1
 
@@ -551,28 +557,50 @@ if (soma_f + soma_m + soma_d) == 0:
             print(perg)
 
             resp = input((ANSI.color_text(39) + "\n" + "Qual sua resposta?! "))
+            
 
             for item in questao:
                 if item == "correta":
                     resp_correta = questao[item]
+            letras = ['A','B','C','D']
+            letras2 = []
+
+            for letra in letras:
+                if letra != resp_correta:
+                    letras2.append(letra)        
 
             
 
             if resp == resp_correta:
                 premio = valores[c-1]
+                if pulos<0:
+                    pulos=-1
+                if ajudas<0:
+                    ajudas=-1    
+                rodada=0
+                repete_quest=0
+                nao_sortear=0    
                 print()
-                print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n")
-                input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                if c!=9:
+                    print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0:.2f}".format(premio)) + "\n")
+            
+                if c==3:
+                    print((ANSI.color_text(39)+ 'HEY! Você passou para o nível MEDIO!'))
+                    
+                elif c==6:
+                    print((ANSI.color_text(39)+ 'HEY! Você passou para o nível DIFICIL!'))    
+                 
+                elif c==9:
+                    print((ANSI.color_text(92) + "PARABÉNS, você zerou o jogo e ganhou um milhão de reais!"))
+                    continuar=False
+                    continuar2=False
+                input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))    
+
 
            
 
             elif resp in letras2:
-                letras = ['A','B','C','D']
-                letras2 = []
-
-                for letra in letras:
-                    if letra != resp_correta:
-                        letras2.append(letra)
+                
                 print()
                 print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
                 continuar = False
@@ -583,16 +611,114 @@ if (soma_f + soma_m + soma_d) == 0:
                 if pulos==0:
                     print((ANSI.color_text(39)) + "OK, pulando! ATENÇÃO: Você não tem mais direito a pulos!")
                     input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    repete_quest=0
+                    rodada=0
+                    nao_sortear=0
                     c = c - 1
                 elif pulos<0:
+                    pulos=-2
                     #colocar cor vermelha
-                    print((ANSI.color_text()) + "Não deu! Você não tem mais direito a pulos!")
+                    print((ANSI.color_text(39)) + "Não deu! Você não tem mais direito a pulos!")
                     input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
                 else:
 
                     print((ANSI.color_text(39) + "OK, pulando! Você ainda tem {0} pulos!".format(pulos)) + "\n")
                     input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    repete_quest=0
+                    rodada=0
+                    nao_sortear=0
                     c = c - 1
+            elif resp=='ajuda':
+                def gera_ajuda(questao):
+                    questões=['A','B','C','D']
+                    certa=questao["correta"]
+                    questões_para_sortear=[]
+                    questões_ja_sorteadas=[]
+
+                    for valores in questões:
+                        if valores!=certa:
+                            questões_para_sortear.append(valores)
+
+                    numero_questoes_sorteadas=random.randint(1,2)
+                    if numero_questoes_sorteadas==1:
+                        numero=random.randint(0,2)
+                        questao_sorteada=questões_para_sortear[numero]
+                        Errada= questao['opcoes'][questao_sorteada]
+                        resp="DICA:"+"\n"+'Opções certamente erradas: '+ Errada
+                        return resp
+                    else:
+                        while len(questões_ja_sorteadas)<2:
+                            numero=random.randint(0,2)
+                            questao_sorteada=questões_para_sortear[numero]
+                            if questao_sorteada not in questões_ja_sorteadas:
+                                questões_ja_sorteadas.append(questao_sorteada)
+                        Errada=questao['opcoes'][questões_ja_sorteadas[0]]
+                        Errada1=questao['opcoes'][questões_ja_sorteadas[1]]        
+                        resp="DICA:"+"\n"+'Opções certamente erradas: '+ Errada +' | '+ Errada1
+                        return resp
+                ajudas= ajudas - 1
+                ajuda_quest=gera_ajuda(questao)
+                
+                if rodada==0 and ajudas>0:
+                    print((ANSI.color_text(39) + 'Ok, lá vem ajuda! Você ainda tem {0} ajudas!'.format(ajudas)) + '\n')
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    #colocar verde
+                    print((ANSI.color_text(39) + ajuda_quest)+'\n')
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    rodada=1
+                elif rodada==1:
+                    #colocar vermelho
+                    print((ANSI.color_text(39) + 'Não deu! Você já pediu ajuda nessa questão!'))
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    ajudas= ajudas + 1
+                elif ajudas==0:
+                    print((ANSI.color_text(39)+ 'Ok, lá vem ajuda! ATENÇÃO: Você não tem mais direito a ajudas!')+'\n')
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    #colocar verde
+                    print((ANSI.color_text(39) + ajuda_quest)+'\n')
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    rodada=1
+                elif ajudas<0:
+                    ajudas=-2
+                    #colocar vermelho
+                    print((ANSI.color_text(39)+ 'Não deu! Você não tem mais direito a ajuda!'))
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+            elif resp=='parar':
+                pare=True
+                while pare: 
+                    print()
+                    sim = "S"
+                    parar = input((ANSI.color_text(39) + "Deseja mesmo parar [S/N]?? Caso responda {0}, sairá com R$ {1:.2f}! ").format(sim,premio))
+                    if parar=='S':
+                        print((ANSI.color_text(39)+ 'Ok!, Você parou e seu prêmio é de R$ {0:.2f} '.format(premio)))
+                        continuar= False
+                        continuar2=False
+                        pare=False
+                    elif parar=='N':
+                        repete_quest=1
+                        pare=False
+                    else:
+                        #colocar em vermelho
+                        print((ANSI.color_text(39)+ 'Opção inválida!'))    
+            elif resp!='A' or resp!='B' or resp!='C' or resp!='D' or resp!='ajuda' or resp!='pula' or resp!='parar':
+                #colocar em vermelho
+                print((ANSI.color_text(39)+ 'Opção inválida!'))
+                print((ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!")+ '\n')
+                input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                nao_sortear=1
+                
+                
+
+            
+
+
+
+                   
+
+
+
+
+
 
 
 
@@ -699,12 +825,4 @@ if (soma_f + soma_m + soma_d) == 0:
     #print()
 
     #print((ANSI.color_text(92) + "PARABÉNS, você zerou o jogo e ganhou um milhão de reais!"))
-
-
-
-
-
-
-
-
 
