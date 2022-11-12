@@ -70,9 +70,9 @@ quest = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'opcoes': {'A': 'Netflix', 'B': 'Disney Plus', 'C': 'TIDAL', 'D': 'HBO Max'},
           'correta': 'C'},
 #7
-          {'titulo': 'Qual a capital do Brasil?',
+          {'titulo': 'Qual a fórmula da substância água?',
           'nivel': 'facil',
-          'opcoes': {'A': 'São Paulo', 'B': 'Rio de Janeiro', 'C': 'Brasília', 'D': 'Fortaleza'},
+          'opcoes': {'A': 'C02', 'B': 'H302', 'C': 'H20', 'D': 'H202'},
           'correta': 'C'},
 
          {'titulo': 'Qual destes parques não se localiza em São Paulo?!',
