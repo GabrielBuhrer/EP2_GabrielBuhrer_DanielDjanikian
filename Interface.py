@@ -448,239 +448,257 @@ for perg in valida_m:
 for perg in valida_d:
     tam = len(perg)
     soma_d = soma_d + tam
+    
+continuar2=True    
 
 if (soma_f + soma_m + soma_d) == 0:
+    while continuar2:
 
-    c = 0
-    lista_q = []
-    premio = 0
-    valores = [1000,5000,10000,30000,50000,100000,300000,500000,1000000]
-    continuar=True
-    pulos = 3
+        c = 0
+        lista_q = []
+        premio = 0
+        valores = [1000,5000,10000,30000,50000,100000,300000,500000,1000000]
+        continuar=True
+        pulos = 3
+        nível='facil'
+        print()
 
-    while continuar:
+        print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
 
-        if c >= 0 and c <= 2:
-            nível = 'facil'
-        elif c > 2 and c <=5:
-            nível = 'medio'
-        else:
-            nível = 'dificil'
+        print()
 
-        if c == 0:
-            print()
+        nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
 
-            print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
+        print()
 
-            print()
-
-            nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
-
-            print()
-
-            input((ANSI.color_text(39) + "Ok {0}, você tem direito a pular 3 vezes e 2 ajudas!\n").format(nome) + (ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!") + 
-            "\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+        input((ANSI.color_text(39) + "Ok {0}, você tem direito a pular 3 vezes e 2 ajudas!\n").format(nome) + (ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!") + 
+        "\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
 
-            print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nível) + "\n") 
-            input(ANSI.color_text(39) + "Aperte ENTER para continuar...")
+        print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível {0}!").format(nível) + "\n") 
+        input(ANSI.color_text(39) + "Aperte ENTER para continuar...")
 
-        
-        def sorteia_questao(dicionário,nível):
-   
-            for chaves in dicionário:
-                if chaves==nível:
-                    x=len(dicionário[chaves])
-                    coloque=x-1
-                    i=random.randint(0,coloque)
-                    z=dicionário[chaves]
-                    return z[i]
 
-        def sorteia_questao_inedita(dicionário,nível,lista):
-            dicionário=dicionário
-            nível=nível
-            continuar=True
-            while continuar:
-                questao=sorteia_questao(dicionário,nível)
-                if questao not in lista:
+        while continuar:
+
+            if c >= 0 and c <= 2:
+                nível = 'facil'
+            elif c > 2 and c <=5:
+                nível = 'medio'
+            else:
+                nível = 'dificil'
+
+            
+
+            
+            def sorteia_questao(dicionário,nível):
+    
+                for chaves in dicionário:
+                    if chaves==nível:
+                        x=len(dicionário[chaves])
+                        coloque=x-1
+                        i=random.randint(0,coloque)
+                        z=dicionário[chaves]
+                        return z[i]
+
+            def sorteia_questao_inedita(dicionário,nível,lista):
+                dicionário=dicionário
+                nível=nível
+                continuar=True
+                while continuar:
+                    questao=sorteia_questao(dicionário,nível)
+                    if questao not in lista:
+                        
+                        lista.append(questao)
+                        continuar=False
+                        return questao
+            if pulos>=0:
+                questao = sorteia_questao_inedita(dicio_f,nível,lista_q)
+                c = c + 1
+
+            def questao_para_texto(questao,c):
+
+                item = 0
+                respostas = 0
+                num = str(c)
+                A = 0
+                B = 0
+                C = 0
+                D = 0
+
+                for item in questao:
+                    if item == "titulo":
+                        titulo = questao[item]
+                    if item == 'opcoes':
+                        respostas = questao[item]
+
+                for letra in respostas:
+                    if letra == "A":
+                        A = respostas[letra]
+                    elif letra == "B":
+                        B = respostas[letra]
+                    elif letra == "C":
+                        C = respostas[letra]
+                    elif letra == "D":
+                        D = respostas[letra]
                     
-                    lista.append(questao)
-                    continuar=False
-                    return questao
+                final1 = ("\n\n----------------------------------------" + "\n" + (ANSI.color_text(34) + "QUESTÃO {0}:") + '\n' + '\n' + (ANSI.color_text(39) + "{1}") + '\n' + '\n' + (ANSI.color_text(39) + "RESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}")).format(num,titulo,A,B,C,D)
 
-        questao = sorteia_questao_inedita(dicio_f,nível,lista_q)
-        c = c + 1
+                return final1
 
-        def questao_para_texto(questao,c):
+            perg = questao_para_texto(questao,c)
 
-            item = 0
-            respostas = 0
-            num = str(c)
-            A = 0
-            B = 0
-            C = 0
-            D = 0
+            print(perg)
+
+            resp = input((ANSI.color_text(39) + "\n" + "Qual sua resposta?! "))
 
             for item in questao:
-                if item == "titulo":
-                    titulo = questao[item]
-                if item == 'opcoes':
-                    respostas = questao[item]
+                if item == "correta":
+                    resp_correta = questao[item]
 
-            for letra in respostas:
-                if letra == "A":
-                    A = respostas[letra]
-                elif letra == "B":
-                    B = respostas[letra]
-                elif letra == "C":
-                    C = respostas[letra]
-                elif letra == "D":
-                    D = respostas[letra]
-                
-            final1 = ("\n\n----------------------------------------" + "\n" + (ANSI.color_text(34) + "QUESTÃO {0}:") + '\n' + '\n' + (ANSI.color_text(39) + "{1}") + '\n' + '\n' + (ANSI.color_text(39) + "RESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}")).format(num,titulo,A,B,C,D)
+            
 
-            return final1
+            if resp == resp_correta:
+                premio = valores[c-1]
+                print()
+                print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n")
+                input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-        perg = questao_para_texto(questao,c)
+           
 
-        print(perg)
+            elif resp in letras2:
+                letras = ['A','B','C','D']
+                letras2 = []
 
-        resp = input((ANSI.color_text(39) + "\n" + "Qual sua resposta?! "))
+                for letra in letras:
+                    if letra != resp_correta:
+                        letras2.append(letra)
+                print()
+                print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
+                continuar = False
+                continuar2= False
 
-        for item in questao:
-            if item == "correta":
-                resp_correta = questao[item]
+            elif resp == 'pula':
+                pulos = pulos - 1
+                if pulos==0:
+                    print((ANSI.color_text(39)) + "OK, pulando! ATENÇÃO: Você não tem mais direito a pulos!")
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    c = c - 1
+                elif pulos<0:
+                    #colocar cor vermelha
+                    print((ANSI.color_text()) + "Não deu! Você não tem mais direito a pulos!")
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                else:
 
-        premio = premio + valores[c-1]
+                    print((ANSI.color_text(39) + "OK, pulando! Você ainda tem {0} pulos!".format(pulos)) + "\n")
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+                    c = c - 1
 
-        if resp == resp_correta:
-            print()
-            print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n")
-            input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-        letras = ['A','B','C','D']
-        letras2 = []
 
-        for letra in letras:
-            if letra != resp_correta:
-                letras2.append(letra)
-
-        if resp in letras2:
-            print()
-            print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
-            continuar = False
-
-        if resp == 'pular':
-            pulos = pulos - 1
-            print((ANSI.color_text(39) + "OK, pulando! Você ainda tem {0} pulos!".format(pulos)) + "\n")
-            input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
-            c = c - 1
-
+            
 
 
         
 
 
-    
 
 
+    #print()
+
+    #print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
+
+    #print()
+
+    #nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
+
+    #print()
+
+    #print(input(ANSI.color_text(39) + "Ok {0}, você tem direito a pular 3 vezes e 2 ajudas!\n".format(nome) + (ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!") + 
+    #"\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar...")))
 
 
-print()
+    #print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível FÁCIL!") + "\n" + 
+    #(ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print((ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!'))
+    #print()
+    #print()
 
-print()
+    #print((ANSI.color_text(39) + "-----------------------"))
 
-nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
+    #n_questao = 1
 
-print()
+    #print()
 
-print(input(ANSI.color_text(39) + "Ok {0}, você tem direito a pular 3 vezes e 2 ajudas!\n".format(nome) + (ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!") + 
-"\n" + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar...")))
+    #print((ANSI.color_text(34) + "QUESTÃO" + ' ' + "{0}".format(n_questao)))
 
+    #print()
 
-print((ANSI.color_text(39) + "O jogo ja vai começar! Lá vem a primeira questão!") + "\n"  + "\n" + (ANSI.color_text(39) + "Vamos começar com questões do nível FÁCIL!") + "\n" + 
-(ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #resp = input((ANSI.color_text(39) + "Qual sua resposta?! "))
 
-print()
-print()
+    #print((ANSI.color_text(91) + "Opção inválida!") + "\n" +
+    #(ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!"))
 
-print((ANSI.color_text(39) + "-----------------------"))
+    #print()
 
-n_questao = 1
+    #esp = input((ANSI.color_text(39) + "Qual sua resposta?! "))
 
-print()
+    #ajudas = 0
 
-print((ANSI.color_text(34) + "QUESTÃO" + ' ' + "{0}".format(n_questao)))
+    #print((ANSI.color_text(39) + "OK, lá vem ajuda! Você ainda tem {0} ajudas!".format(ajudas)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print()
+    #ops_erradas = 0
 
-resp = input((ANSI.color_text(39) + "Qual sua resposta?! "))
+    #print((ANSI.color_text(92) + "DICA:") + "\n" + (ANSI.color_text(92) + "Opções certamente erradas: {0}".format(ops_erradas)) + 
+    #"\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print((ANSI.color_text(91) + "Opção inválida!") + "\n" +
-(ANSI.color_text(96) + "As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula' e 'parar'!"))
+    #print((ANSI.color_text(91) + "Não deu! Você já pediu ajuda nesta questão!") + 
+    #"\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print()
+    #print((ANSI.color_text(39) + "OK, lá vem ajuda! ATENÇÃO: Você não tem mais direito a ajudas!") + "\n" + "\n" +  (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-resp = input((ANSI.color_text(39) + "Qual sua resposta?! "))
+    #pulos = 0
 
-ajudas = 0
+    #print((ANSI.color_text(39) + "OK, pulando! Você ainda tem {0} pulos!".format(pulos)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print((ANSI.color_text(39) + "OK, lá vem ajuda! Você ainda tem {0} ajudas!".format(ajudas)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #print()
 
-ops_erradas = 0
+    #print((ANSI.color_text(39) + "OK, pulando! ATENÇÃO: Você não tem mais direito a pulos!") + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print((ANSI.color_text(92) + "DICA:") + "\n" + (ANSI.color_text(92) + "Opções certamente erradas: {0}".format(ops_erradas)) + 
-"\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #print()
 
-print((ANSI.color_text(91) + "Não deu! Você já pediu ajuda nesta questão!") + 
-"\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #print((ANSI.color_text(91) + "Não deu! Você não tem mais direito a pulos!") + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print((ANSI.color_text(39) + "OK, lá vem ajuda! ATENÇÃO: Você não tem mais direito a ajudas!") + "\n" + "\n" +  (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #print()
 
-pulos = 0
+    #premio = 0
 
-print((ANSI.color_text(39) + "OK, pulando! Você ainda tem {0} pulos!".format(pulos)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #sim = "S"
 
-print()
+    #parar = input((ANSI.color_text(39) + "Deseja mesmo parar [S/N]?? Caso responda {0}, sairá com R$ {1}").format(sim,premio))
 
-print((ANSI.color_text(39) + "OK, pulando! ATENÇÃO: Você não tem mais direito a pulos!") + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
-
-print()
-
-print((ANSI.color_text(91) + "Não deu! Você não tem mais direito a pulos!") + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
-
-print()
-
-premio = 0
-
-sim = "S"
-
-parar = input((ANSI.color_text(39) + "Deseja mesmo parar [S/N]?? Caso responda {0}, sairá com R$ {1}").format(sim,premio))
-
-print((ANSI.color_text(91) + "Opção inválida!"))
+    #print((ANSI.color_text(91) + "Opção inválida!"))
 
 
-print(ANSI.color_text(39) + "Ok! Você parou e seu prêmio é de R$ {0}".format(premio))
+    #print(ANSI.color_text(39) + "Ok! Você parou e seu prêmio é de R$ {0}".format(premio))
 
-print()
+    #print()
 
-print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print()
+    #print()
 
-nivel = 'MÉDIO'
+    #nivel = 'MÉDIO'
 
-print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n" + "\n" + (ANSI.color_text(93) + "HEY! Você passou para o nível {0}".format(nivel)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
+    #print((ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0}".format(premio)) + "\n" + "\n" + (ANSI.color_text(93) + "HEY! Você passou para o nível {0}".format(nivel)) + "\n" + (ANSI.color_text(39) + "Aperte ENTER para continuar..."))
 
-print()
+    #print()
 
-print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
+    #print((ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :("))
 
-print()
+    #print()
 
-print((ANSI.color_text(92) + "PARABÉNS, você zerou o jogo e ganhou um milhão de reais!"))
+    #print((ANSI.color_text(92) + "PARABÉNS, você zerou o jogo e ganhou um milhão de reais!"))
 
 
 
