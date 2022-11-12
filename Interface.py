@@ -594,7 +594,8 @@ if (soma_f + soma_m + soma_d) == 0:
                     print((ANSI.color_text(92) + "PARABÉNS, você zerou o jogo e ganhou um milhão de reais!"))
                     continuar=False
                     continuar2=False
-                input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))    
+                if c!=9:    
+                    input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))    
 
 
            
@@ -614,6 +615,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     repete_quest=0
                     rodada=0
                     nao_sortear=0
+                    ajudas=-1
                     c = c - 1
                 elif pulos<0:
                     pulos=-2
@@ -627,6 +629,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     repete_quest=0
                     rodada=0
                     nao_sortear=0
+                    ajudas=-1
                     c = c - 1
             elif resp=='ajuda':
                 def gera_ajuda(questao):
