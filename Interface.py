@@ -473,6 +473,7 @@ if (soma_f + soma_m + soma_d) == 0:
         print()
 
         nome = input(ANSI.color_text(39) + 'Qual seu nome? ')
+        nome = nome.upper()
 
         print()
     
