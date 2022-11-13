@@ -606,8 +606,13 @@ if (soma_f + soma_m + soma_d) == 0:
                 
                 print()
                 print("\033[1m" + (ANSI.color_text(93) + "Que pena, você errou e vai sair sem nada :(") + "\033[0m")
-                continuar = False
-                continuar2= False
+                print()
+                jogar_dnv = input((ANSI.color_text(39) + "Gostaria de jogar novamente [S/N]? "))
+                if jogar_dnv == "S":
+                    continuar = False
+                else:
+                    continuar = False
+                    continuar2= False
 
             elif resp == 'pula':
                 pulos = pulos - 1
@@ -696,8 +701,13 @@ if (soma_f + soma_m + soma_d) == 0:
                     parar = input((ANSI.color_text(39) + "Deseja mesmo parar [S/N]?? Caso responda {0}, sairá com R$ {1:.2f}! ").format(sim,premio))
                     if parar=='S':
                         print((ANSI.color_text(39)+ 'Ok!, Você parou e seu prêmio é de R$ {0:.2f} '.format(premio)))
-                        continuar= False
-                        continuar2=False
+                        print()
+                        jogar_dnv = input((ANSI.color_text(39) + "Gostaria de jogar novamente [S/N]? "))
+                        if jogar_dnv == "S":
+                            continuar= False
+                        else:
+                            continuar= False
+                            continuar2=False
                         pare=False
                     elif parar=='N':
                         repete_quest=1
@@ -712,4 +722,6 @@ if (soma_f + soma_m + soma_d) == 0:
                 input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
                 nao_sortear=1
                 
+else:
+    print(ANSI.color_text(91) + "A base de dados NÃO está consistente!")
                 
