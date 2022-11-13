@@ -622,7 +622,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     repete_quest=0
                     rodada=0
                     nao_sortear=0
-                    ajudas=-1
+                    
                     c = c - 1
                 elif pulos<0:
                     pulos=-2
@@ -636,7 +636,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     repete_quest=0
                     rodada=0
                     nao_sortear=0
-                    ajudas=-1
+        
                     c = c - 1
             elif resp=='ajuda':
                 def gera_ajuda(questao):
