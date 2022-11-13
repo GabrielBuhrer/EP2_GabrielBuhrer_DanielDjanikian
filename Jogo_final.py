@@ -627,7 +627,7 @@ if (soma_f + soma_m + soma_d) == 0:
                 elif pulos<0:
                     pulos=-2
                     #colocar cor vermelha
-                    print("\033[1m" + (ANSI.color_text(39) + "Não deu! Você não tem mais direito a pulos!") + "\033[0m")
+                    print("\033[1m" + (ANSI.color_text(91) + "Não deu! Você não tem mais direito a pulos!") + "\033[0m")
                     input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
                 else:
 
