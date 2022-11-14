@@ -465,7 +465,7 @@ if (soma_f + soma_m + soma_d) == 0:
         rodada=0
         repete_quest=0
         nao_sortear=0
-        
+        nao_tem_mais_ajuda=0
         print()
 
         print("\033[1m" + (ANSI.color_text(95) + 'Olá! Você está na Fortuna DesSoft e terá a oportunidade de enriquecer!') + "\033[0m")
@@ -520,7 +520,7 @@ if (soma_f + soma_m + soma_d) == 0:
                         lista.append(questao)
                         continuar=False
                         return questao
-            if pulos>=-1 and rodada==0 and ajudas>=-1 and repete_quest==0 and nao_sortear==0:
+            if pulos>=-1 and rodada==0 and nao_tem_mais_ajuda==0 and repete_quest==0 and nao_sortear==0:
                 questao = sorteia_questao_inedita(dicio_f,nível,lista_q)
                 c = c + 1
 
@@ -581,7 +581,8 @@ if (soma_f + soma_m + soma_d) == 0:
                     ajudas=-1    
                 rodada=0
                 repete_quest=0
-                nao_sortear=0    
+                nao_sortear=0
+                nao_tem_mais_ajuda=0    
                 print()
                 if c!=9:
                     print("\033[1m" + (ANSI.color_text(92) + "Você acertou! Seu prêmio atual é de R$ {0:.2f}".format(premio)) + "\033[0m" + "\n")
@@ -622,7 +623,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     repete_quest=0
                     rodada=0
                     nao_sortear=0
-                    
+                    nao_tem_mais_ajuda=0
                     c = c - 1
                 elif pulos<0:
                     pulos=-2
@@ -636,6 +637,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     repete_quest=0
                     rodada=0
                     nao_sortear=0
+                    nao_tem_mais_ajuda=0
         
                     c = c - 1
             elif resp=='ajuda':
@@ -690,6 +692,7 @@ if (soma_f + soma_m + soma_d) == 0:
                     rodada=1
                 elif ajudas<0:
                     ajudas=-2
+                    nao_tem_mais_ajuda=1
                     #colocar vermelho
                     print((ANSI.color_text(91)+ 'Não deu! Você não tem mais direito a ajuda!'))
                     input((ANSI.color_text(39) + "Aperte ENTER para continuar..."))
